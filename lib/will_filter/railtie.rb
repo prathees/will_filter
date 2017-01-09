@@ -45,6 +45,7 @@ end
 require File.join(File.dirname(__FILE__), 'extensions/array_extension')
 require File.join(File.dirname(__FILE__), 'extensions/action_view_extension')
 require File.join(File.dirname(__FILE__), 'extensions/active_record_extension')
+require File.join(File.dirname(__FILE__), 'extensions/active_record_relation_extension')
 require File.join(File.dirname(__FILE__), 'extensions/action_controller_extension')
 
 module WillFilter
@@ -52,6 +53,7 @@ module WillFilter
     initializer 'will_filter' do |app|
       ActiveSupport.on_load(:active_record) do
         ::ActiveRecord::Base.send :include, WillFilter::ActiveRecordExtension
+        ::ActiveRecord::Relation.send :include, WillFilter::ActiveRecordRelationExtension
       end
       ActiveSupport.on_load(:action_view) do
         ::ActionView::Base.send :include, WillFilter::ActionViewExtension
