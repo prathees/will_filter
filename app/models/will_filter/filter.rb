@@ -51,7 +51,7 @@
 
 module WillFilter
   class Filter < ActiveRecord::Base
-    self.table_name = :will_filter_filters
+    self.table_name = WillFilter::Config.db_table_name
 
     # set_table_name  :will_filter_filters
     serialize       :data

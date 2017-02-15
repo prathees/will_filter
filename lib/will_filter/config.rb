@@ -134,5 +134,9 @@ module WillFilter
     def self.default_export_formats
       export_options[:default_formats]
     end
+  
+    def self.db_table_name
+      config[:db_table_name] || :will_filter_filters
+    end
   end
 end
