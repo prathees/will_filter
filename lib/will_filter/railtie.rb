@@ -55,12 +55,14 @@ module WillFilter
         ::ActiveRecord::Base.send :include, WillFilter::ActiveRecordExtension
         ::ActiveRecord::Relation.send :include, WillFilter::ActiveRecordRelationExtension
       end
-      ActiveSupport.on_load(:action_view) do
-        ::ActionView::Base.send :include, WillFilter::ActionViewExtension
+      if WillFilter::Config.frontend_views_enabled?
+        ActiveSupport.on_load(:action_view) do
+          ::ActionView::Base.send :include, WillFilter::ActionViewExtension
+        end
+        ActiveSupport.on_load(:action_controller) do
+          include WillFilter::ActionControllerExtension
+        end
       end
-      ActiveSupport.on_load(:action_controller) do
-        include WillFilter::ActionControllerExtension
-      end      
     end
   end
 end

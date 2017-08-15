@@ -36,7 +36,7 @@ module WillFilter
       Thread.current[:current_user] = site_current_user
       Thread.current[:current_project] = site_current_project
     end
-    
+
     def self.current_user
       Thread.current[:current_user]
     end
@@ -49,16 +49,16 @@ module WillFilter
       Thread.current[:current_user] = nil
       Thread.current[:current_project] = nil
     end
-    
+
     def self.load_yml(file_path)
       yml = YAML.load_file("#{Rails.root}#{file_path}")[Rails.env]
       HashWithIndifferentAccess.new(yml)
     end
-    
+
     def self.config
       @config ||= load_yml("/config/will_filter/config.yml")
     end
-  
+
     def self.require_filter_extensions?
       config[:require_filter_extensions]
     end
@@ -70,27 +70,27 @@ module WillFilter
     def self.effects_options
       config[:effects_options]
     end
-  
+
     def self.save_options
       config[:save_options]
     end
-  
+
     def self.export_options
       config[:export_options]
     end
-  
+
     def self.containers
       config[:containers]
     end
-  
+
     def self.data_types
       config[:data_types]
     end
-  
+
     def self.operators
       config[:operators]
     end
-  
+
     def self.operator_order
       @operator_order ||= begin
         keys = operators.keys
@@ -98,19 +98,19 @@ module WillFilter
         keys
       end
     end
-  
+
     def self.saving_enabled?
       save_options[:enabled]
     end
-  
+
     def self.user_filters_enabled?
       save_options[:user_filters_enabled]
     end
-  
+
     def self.user_class_name
       save_options[:user_class_name]
     end
-    
+
     def self.current_user_method
       save_options[:current_user_method]
     end
@@ -130,13 +130,17 @@ module WillFilter
     def self.exporting_enabled?
       export_options[:enabled]
     end
-  
+
     def self.default_export_formats
       export_options[:default_formats]
     end
-  
+
     def self.db_table_name
       config[:db_table_name] || :will_filter_filters
+    end
+
+    def self.frontend_views_enabled?
+      config[:enable_frontend_views].nil? ? true : config[:enable_frontend_views]
     end
   end
 end
